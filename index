@@ -1,1 +1,21 @@
 
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color:teal">
+<h2>IGO01_အမျိုးသားဝတ်ကုဒ်</h2>
+<p>navy blue,M90-110</p>
+<img src="p1.jpg" height="430" width="350">
+<br>
+<p>Prize:<code>32000ks</code></p>
+<br>
+<button onclick="document.querySelector('#steve').value=parseInt(document.querySelector('#steve').value)<1?parseInt(document.querySelector('#steve').value):parseInt(document.querySelector('#steve').value)-1"">-</button>
+    <input type="number" id="steve" min="0" max="20" value=0>
+    <button onclick="document.querySelector('#steve').value=parseInt(document.querySelector('#steve').value)>19?parseInt(document.querySelector('#steve').value):parseInt(document.querySelector('#steve').value)+1">+</button><br>
+<button>Add to Cart</button>
+</body>
+
+</html>

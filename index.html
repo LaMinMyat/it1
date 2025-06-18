@@ -1,21 +1,68 @@
-
 <!DOCTYPE html>
 <html>
-
 <head>
- <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Submit and View Sheet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, textarea, button {
+      margin: 5px 0;
+      padding: 8px;
+      width: 100%;
+    }
+    iframe {
+      margin-top: 30px;
+      width: 100%;
+      height: 500px;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
-<body style="background-color:teal">
-<h2>IGO01_အမျိုးသားဝတ်ကုဒ်</h2>
-<p>navy blue,M90-110</p>
-<img src="p1.jpg" height="430" width="350">
-<br>
-<p>Prize:<code>32000ks</code></p>
-<br>
-<button onclick="document.querySelector('#steve').value=parseInt(document.querySelector('#steve').value)<1?parseInt(document.querySelector('#steve').value):parseInt(document.querySelector('#steve').value)-1"">-</button>
-    <input type="number" id="steve" min="0" max="20" value=0>
-    <button onclick="document.querySelector('#steve').value=parseInt(document.querySelector('#steve').value)>19?parseInt(document.querySelector('#steve').value):parseInt(document.querySelector('#steve').value)+1">+</button><br>
-<button>Add to Cart</button>
-</body>
+<body>
 
+  <h2>Submit Form</h2>
+  <form id="myForm">
+    <input type="text" name="name" placeholder="Name" required><br>
+    <input type="email" name="email" placeholder="Email" required><br>
+    <textarea name="message" placeholder="Message" required></textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="response"></p>
+
+  <h3>Submitted Responses</h3>
+  <iframe 
+    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRlUIcILXF7feu1s4h-j5fKGfwBPonRCgAcMWeQ13-U4Ac1iucbHckqF--KM69QOIMOsF_QFB7Ge7zZ/pubhtml?widget=true&amp;headers=false">
+  </iframe>
+
+  <script>
+  const form = document.getElementById('myForm');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbzYF50XasvlMOrENLtxbsMh4cHhL5s-xuy_GWZzCp3coQJhBPwBUy2HddNAi5nq7-UItQ/exec", {
+      method: 'POST',
+      body: formData // ✅ Use FormData instead of JSON
+    })
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('response').innerText = "Submitted successfully!";
+      form.reset();
+      const iframe = document.querySelector("iframe");
+      iframe.src = iframe.src;
+    })
+    .catch(error => {
+      document.getElementById('response').innerText = "Error submitting!";
+      console.error(error);
+    });
+  });
+</script>
+
+
+</body>
 </html>
